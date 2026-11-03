@@ -1,0 +1,23 @@
+# Build on Alpine: the host target is x86_64/aarch64-unknown-linux-musl, which
+# links fully statically by default.
+FROM docker.io/library/rust:alpine AS build
+RUN apk add --no-cache musl-dev gcc
+WORKDIR /src
+
+# cache dependency builds separately from the source
+COPY Cargo.toml Cargo.lock ./
+RUN mkdir src && echo 'fn main() {}' > src/main.rs \
+    && cargo build --release --locked \
+    && rm -rf src target/release/deps/server-* target/release/server
+
+COPY src ./src
+RUN cargo build --release --locked
+
+# Distroless: nothing but the binary. No CA bundle is needed because the
+# protocol is plain HTTP over the (already encrypted) tailnet.
+FROM scratch
+COPY --from=build /src/target/release/server /server
+VOLUME /data
+EXPOSE 8000
+ENTRYPOINT ["/server"]
+CMD ["/data/config.toml"]

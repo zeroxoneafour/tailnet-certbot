@@ -1,0 +1,16 @@
+# Signing server. /srv/tailnet-certbot must contain config.toml, root-ca.crt,
+# root-ca.key and (optionally) root-ca.srl.
+[Unit]
+Description=tailnet-certbot signing server
+
+[Container]
+Image=localhost/tailnet-certbot-server:latest
+Volume=/srv/tailnet-certbot:/data:Z
+# Only expose on the tailnet interface address (or front it with `tailscale serve`).
+PublishPort=8000:8000
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

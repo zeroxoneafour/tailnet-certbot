@@ -5,7 +5,7 @@ server = "http://vps.vaughanm.ts.net/tailnet-certbot/"
 [certificate]
 csr = "/data/server.csr"
 cert = "/data/server.crt"
-key = "/data/server.key"
+valid_for = 47
 
 [alt_names]
 dns = [ "vaughan-server.vaughanm.ts.net" ]

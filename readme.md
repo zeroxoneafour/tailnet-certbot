@@ -23,7 +23,6 @@ The server has the following files in `/data` -
 The client has the following files in `/data` -
 * `config.toml` - The config file for the client
 * `server.csr` - The CSR to be signed
-* `server.key` - The server key
 * `server.crt` - The server certificate (generated during processing)
 
 The actual interaction simply works as follows -
@@ -36,7 +35,8 @@ The post request is structured as -
 {
     "csr": "<CSR HERE>",
     "alt-dns": [ <DNS ALT NAMES> ]
-    "alt-ips": [ <DNS ALT IPS> ]
+    "alt-ips": [ <DNS ALT IPS> ],
+    "valid-for": <SIGN DAYS>
 }
 ```
 

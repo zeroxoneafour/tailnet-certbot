@@ -1,0 +1,15 @@
+# One-shot renewal job, triggered by tailnet-certbot-client.timer.
+# /srv/tailnet-certbot-client must contain config.toml and server.csr;
+# the client fails if the CSR is missing.
+[Unit]
+Description=tailnet-certbot certificate renewal
+Wants=network-online.target
+After=network-online.target
+
+[Container]
+Image=localhost/tailnet-certbot-client:latest
+Volume=/srv/tailnet-certbot-client:/data:Z
+
+[Service]
+Type=oneshot
+Restart=no
