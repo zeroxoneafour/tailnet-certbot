@@ -1,0 +1,12 @@
+[client]
+server = "http://vps.vaughanm.ts.net/tailnet-certbot/"
+
+# this entire section is optional
+[certificate]
+csr = "/data/server.csr"
+cert = "/data/server.crt"
+key = "/data/server.key"
+
+[alt_names]
+dns = [ "vaughan-server.vaughanm.ts.net" ]
+ip = [ "100.64.0.2" ]

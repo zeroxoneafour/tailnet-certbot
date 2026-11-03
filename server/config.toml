@@ -1,0 +1,9 @@
+[server]
+path = "/tailnet-certbot/"
+serve_on = "0.0.0.0:8000"
+
+# this entire section is optional
+[certificate]
+cert = "/data/root-ca.crt"
+srl = "/data/root-ca.srl"
+key = "/data/root-ca.key"
